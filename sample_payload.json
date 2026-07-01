@@ -1,0 +1,35 @@
+{
+  "project_name": "E-Commerce Platform Launch",
+  "start_date": "2026-08-01",
+  "end_date": "2026-10-31",
+  "team_members": [
+    {
+      "id": "member-alice",
+      "name": "Alice Smith",
+      "role": "Frontend Developer",
+      "skills": ["React", "TypeScript", "CSS"],
+      "experience": "senior"
+    },
+    {
+      "id": "member-bob",
+      "name": "Bob Johnson",
+      "role": "Backend Developer",
+      "skills": ["Python", "FastAPI", "PostgreSQL"],
+      "experience": "mid"
+    },
+    {
+      "id": "member-diana",
+      "name": "Diana Prince",
+      "role": "UX/UI Designer",
+      "skills": ["Figma", "Adobe XD", "Sketch"],
+      "experience": "mid"
+    },
+    {
+      "id": "member-charlie",
+      "name": "Charlie Brown",
+      "role": "DevOps Engineer",
+      "skills": ["AWS", "Docker", "Kubernetes"],
+      "experience": "senior"
+    }
+  ]
+}

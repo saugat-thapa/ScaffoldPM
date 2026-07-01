@@ -5,10 +5,11 @@ from datetime import date, timedelta
 from typing import Iterable
 from uuid import uuid4
 
-from langchain.output_parsers import PydanticOutputParser
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import PydanticOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field, ValidationError
+
 
 from app.core.config import settings
 from app.models.schemas import Activity, Phase, Project, Task, TaskType, TeamMember

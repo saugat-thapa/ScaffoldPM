@@ -94,6 +94,15 @@ async def generate_project_plan(
     )
 
 
+@router.get("/members")
+async def list_members(db: AsyncSession = Depends(get_db)) -> list[TeamMember]:
+    try:
+        members = await crud.list_team_members(db)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail="Database error while listing team members") from exc
+    return [_model_to_team_member(member) for member in members]
+
+
 @router.get("/{project_id}")
 async def fetch_project(project_id: str, db: AsyncSession = Depends(get_db)) -> WBSResponse:
     try:

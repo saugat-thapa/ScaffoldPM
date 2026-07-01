@@ -1,0 +1,8 @@
+{
+  "venvPath": "/media/ayush/Backup/ScaffoldPM/backend",
+  "venv": "venv",
+  "extraPaths": [
+    "/media/ayush/Backup/ScaffoldPM/backend",
+    "/media/ayush/Backup/ScaffoldPM/backend/venv/lib/python3.10/site-packages"
+  ]
+}

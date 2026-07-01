@@ -106,6 +106,11 @@ async def list_projects(db: AsyncSession) -> list[ProjectModel]:
     result = await db.execute(select(ProjectModel).order_by(ProjectModel.created_at.desc()))
     return result.scalars().all()
 
+async def list_team_members(db: AsyncSession) -> list[TeamMemberModel]:
+    result = await db.execute(select(TeamMemberModel).order_by(TeamMemberModel.name.asc()))
+    return result.scalars().all()
+
+
 # ── Update: Kanban status drag ────────────────────────────────────────────────
 
 async def update_task_status(db: AsyncSession, task_id: str, new_status: TaskStatus) -> TaskModel | None:
