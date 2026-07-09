@@ -19,28 +19,28 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
   const isInvitationRoute = pathname?.startsWith("/invitation");
 
   return (
-            <TooltipProvider>
-          <SidebarProvider>
-              <div className="bg-sidebar relative flex min-h-screen w-full overflow-x-hidden">
-                {/* SIDEBAR */}
-                <aside
-                  className={`hidden shrink-0 transition-[width] duration-300 lg:block ${
-                    isExpanded ? "w-54" : "w-16"
-                  }`}
-                >
-                  <AppSidebar
-                    setHovered={setHovered}
-                    isPinned={isPinned}
-                    setIsPinned={setIsPinned}
-                  />
-                </aside>  
-                <div className="bg-sidebar flex h-screen min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden p-4">
-                  <main className="scrollbar-hide bg-background w-full flex flex-col flex-1 overflow-x-hidden overflow-y-auto rounded-4xl">
-                    {children}
-                  </main>
-                </div>
-                </div>         
-          </SidebarProvider>
-        </TooltipProvider>
+    <TooltipProvider>
+      <SidebarProvider>
+        <div className="bg-sidebar relative flex min-h-screen w-full overflow-x-hidden">
+          {/* SIDEBAR */}
+          <aside
+            className={`hidden shrink-0 transition-[width] duration-300 lg:block ${
+              isExpanded ? "w-54" : "w-16"
+            }`}
+          >
+            <AppSidebar
+              setHovered={setHovered}
+              isPinned={isPinned}
+              setIsPinned={setIsPinned}
+            />
+          </aside>
+          <div className="bg-[#F6F6F6] flex h-screen min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden p-4">
+            <main className="scrollbar-hide w-full flex flex-col flex-1 overflow-x-hidden overflow-y-auto rounded-4xl">
+              {children}
+            </main>
+          </div>
+        </div>
+      </SidebarProvider>
+    </TooltipProvider>
   );
 }

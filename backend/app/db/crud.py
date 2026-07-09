@@ -125,12 +125,18 @@ async def update_task_status(db: AsyncSession, task_id: str, new_status: TaskSta
 # ── Update: task assignment ───────────────────────────────────────────────────
 
 async def update_task_assignment(db: AsyncSession, task_id: str, member_id: str) -> TaskModel | None:
-    task   = await db.get(TaskModel, task_id)
-    member = await db.get(TeamMemberModel, member_id)
-    if not task or not member:
+    task = await db.get(TaskModel, task_id)
+    if not task:
         return None
-    task.assigned_to   = member_id
-    task.assigned_name = member.name
+    if not member_id:
+        task.assigned_to = None
+        task.assigned_name = None
+    else:
+        member = await db.get(TeamMemberModel, member_id)
+        if not member:
+            return None
+        task.assigned_to = member_id
+        task.assigned_name = member.name
     await db.commit()
     await db.refresh(task)
     return task

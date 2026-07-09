@@ -76,3 +76,37 @@ export async function getMembers(): Promise<TeamMember[]> {
   return response.json();
 }
 
+/**
+ * Update the status of a task
+ */
+export async function updateTaskStatus(taskId: string, newStatus: string): Promise<any> {
+  const response = await fetch(`${API_BASE_URL}/project/task/status`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ task_id: taskId, new_status: newStatus }),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to update task status");
+  }
+  return response.json();
+}
+
+/**
+ * Update the assignee of a task
+ */
+export async function updateTaskAssignment(taskId: string, memberId: string): Promise<any> {
+  const response = await fetch(`${API_BASE_URL}/project/task/assign`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ task_id: taskId, member_id: memberId }),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to update task assignment");
+  }
+  return response.json();
+}
+
