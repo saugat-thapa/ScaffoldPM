@@ -17,18 +17,23 @@ def _str_to_list(s: str) -> list[str]:
 
 async def save_project(db: AsyncSession, wbs: WBSResponse) -> str:
     project = wbs.project
+    team_models: list[TeamMemberModel] = []
 
     # Upsert team members first
     for member in project.team:
         existing = await db.get(TeamMemberModel, member.id)
-        if not existing:
-            db.add(TeamMemberModel(
+        if existing:
+            team_models.append(existing)
+        else:
+            member_model = TeamMemberModel(
                 id=member.id,
                 name=member.name,
                 role=member.role,
                 skills=_skills_to_str(member.skills),
                 experience=member.experience,
-            ))
+            )
+            db.add(member_model)
+            team_models.append(member_model)
 
     # Create project
     proj_model = ProjectModel(
@@ -42,6 +47,7 @@ async def save_project(db: AsyncSession, wbs: WBSResponse) -> str:
         total_duration_days=wbs.total_duration_days,
         created_at=project.created_at,
     )
+    proj_model.team = team_models
     db.add(proj_model)
 
     # Phases → Activities → Tasks
