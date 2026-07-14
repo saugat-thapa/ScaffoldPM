@@ -1,0 +1,431 @@
+SCAFFOLDPM - REPORT REFERENCES AND CITATIONS
+============================================
+
+Purpose
+-------
+This file contains real references that can be used in the final year project
+report for ScaffoldPM. The references are grouped by report section and include
+suggested in-text citations. Use the citation style required by your college or
+department. APA-style and IEEE-style examples are included.
+
+
+1. Recommended Core References
+------------------------------
+Use these as the main references for the report because they directly support
+the core concepts implemented in ScaffoldPM.
+
+[1] Project Management Institute. (2021). A Guide to the Project Management
+Body of Knowledge (PMBOK Guide) (7th ed.). Project Management Institute.
+Suggested in-text citation:
+- APA: (Project Management Institute, 2021)
+- IEEE: [1]
+Use for:
+- Project management background
+- Project planning
+- Work breakdown structure
+- Scheduling concepts
+- General project management terminology
+
+[2] Project Management Institute. (2019). Practice Standard for Work Breakdown
+Structures (3rd ed.). Project Management Institute.
+Suggested in-text citation:
+- APA: (Project Management Institute, 2019)
+- IEEE: [2]
+Use for:
+- WBS definition
+- WBS hierarchy
+- Deliverable decomposition
+- Scope breakdown and work package explanation
+
+[3] Hans, R. T. (2013). Work Breakdown Structure: A Tool for Software Project
+Scope Verification. arXiv:1308.2876.
+Suggested in-text citation:
+- APA: (Hans, 2013)
+- IEEE: [3]
+Use for:
+- WBS in software projects
+- Scope verification
+- Justifying WBS use in software planning
+
+[4] Kelley, J. E., Jr., & Walker, M. R. (1959). Critical-path planning and
+scheduling. Proceedings of the Eastern Joint IRE-AIEE-ACM Computer Conference.
+Suggested in-text citation:
+- APA: (Kelley & Walker, 1959)
+- IEEE: [4]
+Use for:
+- Critical path method history
+- CPM scheduling foundation
+- Dependency-based project scheduling
+
+[5] Reimers, N., & Gurevych, I. (2019). Sentence-BERT: Sentence Embeddings
+using Siamese BERT-Networks. arXiv:1908.10084.
+Suggested in-text citation:
+- APA: (Reimers & Gurevych, 2019)
+- IEEE: [5]
+Use for:
+- Semantic sentence embeddings
+- Skill-task matching
+- Cosine similarity between task and team member profiles
+
+[6] Chen, T., & Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System.
+Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge
+Discovery and Data Mining, 785-794.
+Suggested in-text citation:
+- APA: (Chen & Guestrin, 2016)
+- IEEE: [6]
+Use for:
+- XGBoost duration estimation model
+- Gradient tree boosting
+- Machine learning model justification
+
+[7] Boehm, B. W. (1981). Software Engineering Economics. Prentice-Hall.
+Suggested in-text citation:
+- APA: (Boehm, 1981)
+- IEEE: [7]
+Use for:
+- Software cost estimation
+- Software effort estimation background
+- Historical estimation models such as COCOMO
+
+[8] Trendowicz, A., Munch, J., & Jeffery, R. (2014). State of the Practice in
+Software Effort Estimation: A Survey and Literature Review. arXiv:1401.5878.
+Suggested in-text citation:
+- APA: (Trendowicz et al., 2014)
+- IEEE: [8]
+Use for:
+- Literature review on software effort estimation
+- Motivation for automated estimation support
+- Industrial need for estimation methods
+
+[9] Mahmood, Y., Kama, N., Azmi, A., Khan, A. S., & Ali, M. (2021). Software
+Effort Estimation Accuracy Prediction of Machine Learning Techniques: A
+Systematic Performance Evaluation. arXiv:2101.10658.
+Suggested in-text citation:
+- APA: (Mahmood et al., 2021)
+- IEEE: [9]
+Use for:
+- Machine learning in effort estimation
+- Comparing ML approaches in software effort prediction
+- Justifying data-driven duration estimation
+
+
+2. Official Technology Documentation
+------------------------------------
+Use these references in the implementation chapter and technology stack
+section.
+
+[10] FastAPI. (n.d.). FastAPI Documentation. https://fastapi.tiangolo.com/
+Suggested in-text citation:
+- APA: (FastAPI, n.d.)
+- IEEE: [10]
+Use for:
+- FastAPI backend framework
+- API development
+- Automatic OpenAPI/Swagger documentation
+- Python type-hint based API design
+
+[11] Pydantic. (n.d.). Pydantic Documentation: Models.
+https://docs.pydantic.dev/latest/concepts/models/
+Suggested in-text citation:
+- APA: (Pydantic, n.d.)
+- IEEE: [11]
+Use for:
+- Pydantic models
+- Data validation
+- Serialization
+- JSON schema generation
+
+[12] SQLAlchemy. (n.d.). SQLAlchemy 2.0 Documentation: Asynchronous I/O.
+https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html
+Suggested in-text citation:
+- APA: (SQLAlchemy, n.d.)
+- IEEE: [12]
+Use for:
+- Asynchronous database access
+- SQLAlchemy ORM
+- AsyncSession
+- Database layer implementation
+
+[13] SQLite. (n.d.). About SQLite. https://www.sqlite.org/about.html
+Suggested in-text citation:
+- APA: (SQLite, n.d.)
+- IEEE: [13]
+Use for:
+- SQLite database justification
+- Embedded relational database
+- Single-file database
+- Serverless database architecture
+
+[14] LangChain. (n.d.). LangChain Overview.
+https://docs.langchain.com/oss/python/langchain/overview
+Suggested in-text citation:
+- APA: (LangChain, n.d.)
+- IEEE: [14]
+Use for:
+- LLM application orchestration
+- Prompt/model integration
+- Agent/model harness explanation
+
+[15] OpenAI. (n.d.). Text Generation Guide.
+https://platform.openai.com/docs/guides/text
+Suggested in-text citation:
+- APA: (OpenAI, n.d.)
+- IEEE: [15]
+Use for:
+- LLM text generation
+- Explaining why OpenAI API can generate structured project plan text
+
+[16] OpenAI. (n.d.). Structured Model Outputs.
+https://platform.openai.com/docs/guides/structured-outputs
+Suggested in-text citation:
+- APA: (OpenAI, n.d.)
+- IEEE: [16]
+Use for:
+- Structured JSON output
+- Schema-guided LLM responses
+- Validating AI-generated structured data
+
+[17] Sentence Transformers. (n.d.). SentenceTransformers Documentation.
+https://www.sbert.net/
+Suggested in-text citation:
+- APA: (Sentence Transformers, n.d.)
+- IEEE: [17]
+Use for:
+- SentenceTransformer library
+- Computing text embeddings
+- Semantic textual similarity
+
+[18] XGBoost Developers. (n.d.). XGBoost Documentation.
+https://xgboost.readthedocs.io/
+Suggested in-text citation:
+- APA: (XGBoost Developers, n.d.)
+- IEEE: [18]
+Use for:
+- XGBoost implementation
+- Gradient boosting library
+- Model training and prediction
+
+[19] NetworkX Developers. (n.d.). topological_sort - NetworkX Documentation.
+https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html
+Suggested in-text citation:
+- APA: (NetworkX Developers, n.d.)
+- IEEE: [19]
+Use for:
+- Directed graph handling
+- Topological sorting
+- Dependency order and critical path logic
+
+
+3. Suggested In-Text Citations by Report Section
+------------------------------------------------
+
+Introduction / Background:
+- Project planning requires scope breakdown, scheduling, and resource
+  coordination (Project Management Institute, 2021).
+- WBS is a recognized project management technique for decomposing project
+  scope into manageable deliverables (Project Management Institute, 2019).
+
+Problem Statement:
+- Software effort estimation is difficult and remains important for project
+  success because inaccurate estimates affect cost, schedule, and planning
+  reliability (Trendowicz et al., 2014).
+
+Literature Review:
+- WBS can support software scope verification by organizing project scope into
+  deliverable-oriented components (Hans, 2013).
+- CPM provides a scheduling basis for identifying activities that control
+  total project duration (Kelley & Walker, 1959).
+- Machine learning techniques have been widely studied for software effort
+  estimation and can improve estimation support when historical data is
+  available (Mahmood et al., 2021).
+
+System Design:
+- ScaffoldPM uses WBS principles to organize the project into phases,
+  activities, and tasks (Project Management Institute, 2019).
+- The system represents dependencies as a directed graph and uses topological
+  ordering concepts for dependency-based scheduling (NetworkX Developers,
+  n.d.).
+
+AI / NLP Methodology:
+- Sentence-BERT provides semantically meaningful sentence embeddings that can
+  be compared using cosine similarity (Reimers & Gurevych, 2019).
+- ScaffoldPM applies this concept by comparing task descriptions and required
+  skills with team member profiles.
+
+Machine Learning Methodology:
+- XGBoost is a scalable tree boosting system suitable for supervised learning
+  problems (Chen & Guestrin, 2016).
+- ScaffoldPM uses XGBoost regression to estimate task duration from task type,
+  description length, required skills count, assignee experience, and heuristic
+  estimate.
+
+Implementation:
+- FastAPI is used to build the backend API because it supports Python type
+  hints, validation, and automatic API documentation (FastAPI, n.d.).
+- Pydantic models are used for schema definition, parsing, validation, and
+  serialization (Pydantic, n.d.).
+- SQLAlchemy async ORM is used for asynchronous database operations
+  (SQLAlchemy, n.d.).
+- SQLite is used as a lightweight serverless database for local persistence
+  (SQLite, n.d.).
+- LangChain is used to connect the project workflow with LLM calls
+  (LangChain, n.d.).
+- OpenAI text generation is used for creating WBS content from a project scope
+  document (OpenAI, n.d.).
+
+Critical Path Analysis:
+- CPM identifies tasks that directly affect overall project duration by
+  analyzing task dependencies and slack (Kelley & Walker, 1959).
+- NetworkX topological sorting supports ordering nodes in a directed acyclic
+  graph where one task must occur before another (NetworkX Developers, n.d.).
+
+Testing and Evaluation:
+- Evaluate WBS relevance against the uploaded scope.
+- Evaluate assignments against team member skill profiles.
+- Evaluate duration prediction using historical task data.
+- Evaluate scheduling by verifying dependency order, working-day calculations,
+  and critical path output.
+
+Conclusion:
+- ScaffoldPM demonstrates how project management concepts, software effort
+  estimation, NLP embeddings, and ML-based prediction can be integrated into an
+  AI-assisted planning workflow.
+
+
+4. APA-Style Reference List
+---------------------------
+Use this section if your report uses APA style.
+
+Boehm, B. W. (1981). Software Engineering Economics. Prentice-Hall.
+
+Chen, T., & Guestrin, C. (2016). XGBoost: A scalable tree boosting system.
+Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge
+Discovery and Data Mining, 785-794.
+
+FastAPI. (n.d.). FastAPI documentation. https://fastapi.tiangolo.com/
+
+Hans, R. T. (2013). Work Breakdown Structure: A tool for software project
+scope verification. arXiv:1308.2876.
+
+Kelley, J. E., Jr., & Walker, M. R. (1959). Critical-path planning and
+scheduling. Proceedings of the Eastern Joint IRE-AIEE-ACM Computer Conference.
+
+LangChain. (n.d.). LangChain overview.
+https://docs.langchain.com/oss/python/langchain/overview
+
+Mahmood, Y., Kama, N., Azmi, A., Khan, A. S., & Ali, M. (2021). Software
+effort estimation accuracy prediction of machine learning techniques: A
+systematic performance evaluation. arXiv:2101.10658.
+
+NetworkX Developers. (n.d.). topological_sort - NetworkX documentation.
+https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html
+
+OpenAI. (n.d.). Structured model outputs.
+https://platform.openai.com/docs/guides/structured-outputs
+
+OpenAI. (n.d.). Text generation guide.
+https://platform.openai.com/docs/guides/text
+
+Project Management Institute. (2019). Practice Standard for Work Breakdown
+Structures (3rd ed.). Project Management Institute.
+
+Project Management Institute. (2021). A Guide to the Project Management Body
+of Knowledge (PMBOK Guide) (7th ed.). Project Management Institute.
+
+Pydantic. (n.d.). Pydantic documentation: Models.
+https://docs.pydantic.dev/latest/concepts/models/
+
+Reimers, N., & Gurevych, I. (2019). Sentence-BERT: Sentence embeddings using
+Siamese BERT-networks. arXiv:1908.10084.
+
+Sentence Transformers. (n.d.). SentenceTransformers documentation.
+https://www.sbert.net/
+
+SQLAlchemy. (n.d.). SQLAlchemy 2.0 documentation: Asynchronous I/O.
+https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html
+
+SQLite. (n.d.). About SQLite. https://www.sqlite.org/about.html
+
+Trendowicz, A., Munch, J., & Jeffery, R. (2014). State of the practice in
+software effort estimation: A survey and literature review. arXiv:1401.5878.
+
+XGBoost Developers. (n.d.). XGBoost documentation.
+https://xgboost.readthedocs.io/
+
+
+5. IEEE-Style Reference List
+----------------------------
+Use this section if your report uses IEEE style.
+
+[1] Project Management Institute, A Guide to the Project Management Body of
+Knowledge (PMBOK Guide), 7th ed. Project Management Institute, 2021.
+
+[2] Project Management Institute, Practice Standard for Work Breakdown
+Structures, 3rd ed. Project Management Institute, 2019.
+
+[3] R. T. Hans, "Work Breakdown Structure: A Tool for Software Project Scope
+Verification," arXiv:1308.2876, 2013.
+
+[4] J. E. Kelley Jr. and M. R. Walker, "Critical-path planning and scheduling,"
+in Proc. Eastern Joint IRE-AIEE-ACM Computer Conference, 1959.
+
+[5] N. Reimers and I. Gurevych, "Sentence-BERT: Sentence embeddings using
+Siamese BERT-networks," arXiv:1908.10084, 2019.
+
+[6] T. Chen and C. Guestrin, "XGBoost: A scalable tree boosting system," in
+Proc. 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data
+Mining, 2016, pp. 785-794.
+
+[7] B. W. Boehm, Software Engineering Economics. Prentice-Hall, 1981.
+
+[8] A. Trendowicz, J. Munch, and R. Jeffery, "State of the practice in
+software effort estimation: A survey and literature review," arXiv:1401.5878,
+2014.
+
+[9] Y. Mahmood, N. Kama, A. Azmi, A. S. Khan, and M. Ali, "Software effort
+estimation accuracy prediction of machine learning techniques: A systematic
+performance evaluation," arXiv:2101.10658, 2021.
+
+[10] FastAPI, "FastAPI documentation." https://fastapi.tiangolo.com/
+
+[11] Pydantic, "Pydantic documentation: Models."
+https://docs.pydantic.dev/latest/concepts/models/
+
+[12] SQLAlchemy, "SQLAlchemy 2.0 documentation: Asynchronous I/O."
+https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html
+
+[13] SQLite, "About SQLite." https://www.sqlite.org/about.html
+
+[14] LangChain, "LangChain overview."
+https://docs.langchain.com/oss/python/langchain/overview
+
+[15] OpenAI, "Text generation guide."
+https://platform.openai.com/docs/guides/text
+
+[16] OpenAI, "Structured model outputs."
+https://platform.openai.com/docs/guides/structured-outputs
+
+[17] Sentence Transformers, "SentenceTransformers documentation."
+https://www.sbert.net/
+
+[18] XGBoost Developers, "XGBoost documentation."
+https://xgboost.readthedocs.io/
+
+[19] NetworkX Developers, "topological_sort - NetworkX documentation."
+https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html
+
+
+6. Notes for Using These References Correctly
+---------------------------------------------
+- Use PMBOK and PMI WBS references in the project-management theory section.
+- Use Hans (2013) to connect WBS specifically to software projects.
+- Use Kelley and Walker (1959) for critical path method history and theory.
+- Use Reimers and Gurevych (2019) for the semantic matching module.
+- Use Chen and Guestrin (2016) for XGBoost and duration prediction.
+- Use Boehm (1981), Trendowicz et al. (2014), and Mahmood et al. (2021) for
+  software effort estimation background.
+- Use official docs for implementation details, not as the main theoretical
+  foundation.
+- Do not cite Wikipedia in the final report unless your institution allows it;
+  use the original books, papers, and official documentation listed above.
+

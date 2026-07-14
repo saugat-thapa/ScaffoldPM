@@ -1,0 +1,1242 @@
+SCAFFOLDPM - FINAL YEAR PROJECT REPORT DETAILS
+==============================================
+
+Project Title
+-------------
+ScaffoldPM: AI-Driven Project Planning and Optimization System
+
+Project Type
+------------
+Final year software engineering / computer science project.
+
+Domain
+------
+Artificial intelligence, project management, software project planning,
+work breakdown structure generation, task assignment, scheduling, and
+critical path analysis.
+
+Prepared For
+------------
+This file contains the core project details needed to prepare a complete
+final year project report for ScaffoldPM.
+
+
+1. Executive Summary
+--------------------
+ScaffoldPM is an AI-driven backend system designed to help project managers
+convert a project scope document into an organized and optimized project plan.
+The system accepts a PDF, DOC/DOCX, or TXT scope document along with project
+metadata such as project name, start date, end date, and team members. It then
+extracts the document text, uses a large language model to generate a detailed
+work breakdown structure (WBS), assigns tasks to suitable team members using
+semantic skill matching, estimates task duration using a trained machine
+learning model or fallback heuristic logic, schedules tasks based on
+dependencies and team availability, analyzes the critical path, and stores the
+final project plan in a SQLite database.
+
+The system is implemented as a FastAPI backend and uses asynchronous SQLAlchemy
+for database access. It includes modules for document extraction, WBS
+generation, task-member matching, duration prediction, scheduling, critical
+path method analysis, and project CRUD operations. The current repository
+contains the backend implementation and an empty frontend directory reserved
+for a future client interface.
+
+
+2. Background
+-------------
+Project planning is a critical activity in software development and other
+engineering domains. A project manager must understand the scope, divide work
+into manageable components, allocate tasks to suitable team members, estimate
+effort, prepare a realistic schedule, and monitor progress. These activities
+are often time-consuming and error-prone, especially when project requirements
+are provided as long unstructured documents.
+
+Traditional project management tools usually require manual entry of phases,
+tasks, dependencies, assignments, and schedules. ScaffoldPM addresses this
+problem by using AI and automation to transform a scope document into a
+structured project plan. It combines natural language processing, large
+language models, machine learning-based duration estimation, semantic skill
+matching, and graph-based critical path analysis to reduce manual planning
+effort.
+
+
+3. Problem Statement
+--------------------
+Manual project planning requires significant time, experience, and attention.
+Project managers must read lengthy scope documents, identify deliverables,
+divide the work into phases and tasks, assign each task to the right person,
+estimate effort, arrange tasks according to dependencies, and detect critical
+activities that directly affect the project deadline.
+
+This manual process can cause several issues:
+
+- Important tasks may be missed while reading the scope document.
+- Task dependencies may be defined incorrectly.
+- Work may be assigned to team members without considering their skills.
+- Duration estimates may be inconsistent or biased.
+- Project delays may occur when the critical path is not identified early.
+- Project data may not be stored in a structured format for later tracking.
+
+ScaffoldPM solves these issues by automating the initial planning workflow and
+producing a structured project plan from a scope document.
+
+
+4. Aim
+------
+The aim of ScaffoldPM is to design and implement an AI-driven project planning
+system that automatically generates, optimizes, and stores a structured
+software project plan from an uploaded scope document.
+
+
+5. Objectives
+-------------
+The main objectives of ScaffoldPM are:
+
+1. To extract readable text from uploaded project scope documents.
+2. To generate a detailed work breakdown structure using an LLM.
+3. To divide a project into phases, activities, and tasks.
+4. To identify task skills, task types, and dependencies.
+5. To assign tasks to team members based on skill similarity and workload.
+6. To estimate task duration using a trained ML model or fallback heuristic.
+7. To schedule tasks using dependencies, working days, and member availability.
+8. To compute task slack and identify critical path tasks.
+9. To store generated project plans in a relational database.
+10. To provide APIs for retrieving projects, listing projects, updating task
+    status, and changing task assignment.
+
+
+6. Scope of the Project
+-----------------------
+The current implementation focuses on the backend of an AI project planning
+system. It supports document-based WBS generation, task assignment, duration
+estimation, scheduling, critical path analysis, and persistence.
+
+Included in scope:
+
+- Uploading project scope documents.
+- Extracting text from PDF, DOC, DOCX, and TXT files.
+- Generating structured WBS data.
+- Managing phases, activities, tasks, and team members.
+- Semantic assignment of tasks to team members.
+- Duration estimation with XGBoost model support.
+- Fallback duration estimation when the model is unavailable.
+- Greedy dependency-aware scheduling.
+- Working-day calendar logic that excludes weekends.
+- Critical path method analysis using graph algorithms.
+- SQLite database persistence.
+- REST API endpoints using FastAPI.
+- Task status update and reassignment support.
+
+Out of current scope:
+
+- A completed production frontend.
+- Authentication and authorization.
+- Role-based access control.
+- Real-time collaboration.
+- Cloud deployment configuration.
+- Advanced calendar support for public holidays and individual leaves.
+- Advanced optimization using OR-Tools, despite OR-Tools being listed as a
+  dependency.
+
+
+7. Technology Stack
+-------------------
+Backend Framework:
+- FastAPI 0.115.0
+
+ASGI Server:
+- Uvicorn
+
+Programming Language:
+- Python
+
+Data Validation:
+- Pydantic 2.8.2
+
+Database:
+- SQLite
+- SQLAlchemy 2.0.35
+- aiosqlite 0.20.0
+
+AI and LLM:
+- LangChain
+- LangChain OpenAI
+- OpenAI API
+- ChatOpenAI model configured in code as "gpt-5.4-mini"
+
+Embedding / NLP:
+- sentence-transformers
+- all-MiniLM-L6-v2 embedding model
+
+Machine Learning:
+- XGBoost
+- scikit-learn
+- pandas
+- numpy
+- joblib
+
+Document Processing:
+- pdfplumber
+- PyMuPDF / fitz
+- python-docx
+
+Graph Processing:
+- NetworkX
+
+Configuration:
+- python-dotenv
+- pydantic-settings
+
+Development Database File:
+- backend/scaffoldpm.db
+
+
+8. System Users
+---------------
+Primary user:
+- Project manager or team lead who wants to generate a project plan from a
+  scope document.
+
+Secondary users:
+- Team members who may view assigned tasks and task status.
+- Academic evaluator who reviews the planning process, algorithms, and
+  generated outputs.
+
+
+9. Functional Requirements
+--------------------------
+FR1: The system shall allow uploading a scope document.
+FR2: The system shall support PDF, DOC, DOCX, and TXT documents.
+FR3: The system shall extract and clean text from uploaded documents.
+FR4: The system shall accept project name, start date, end date, and team
+members as input.
+FR5: The system shall generate a WBS containing phases, activities, and tasks.
+FR6: The system shall assign a unique ID to every generated project entity.
+FR7: The system shall identify task type, required skills, and dependencies.
+FR8: The system shall resolve task dependencies from task titles to task IDs.
+FR9: The system shall assign tasks to team members based on skills and
+experience.
+FR10: The system shall estimate task effort in hours.
+FR11: The system shall schedule tasks using dependencies and team availability.
+FR12: The system shall exclude weekends while calculating working days.
+FR13: The system shall calculate slack for each task.
+FR14: The system shall mark critical tasks.
+FR15: The system shall save the generated plan in a database.
+FR16: The system shall return generated project details through an API.
+FR17: The system shall list saved projects.
+FR18: The system shall fetch a saved project by ID.
+FR19: The system shall update task status.
+FR20: The system shall update task assignment.
+
+
+10. Non-Functional Requirements
+-------------------------------
+NFR1: The API should validate incoming request data.
+NFR2: The API should return proper HTTP errors for invalid input.
+NFR3: The project data should be stored persistently.
+NFR4: The system should use modular architecture for maintainability.
+NFR5: The system should support asynchronous database operations.
+NFR6: The system should produce structured JSON responses.
+NFR7: The system should be extensible for future frontend and authentication.
+NFR8: The system should handle unsupported file types gracefully.
+NFR9: The system should continue duration estimation using heuristic logic if
+the trained ML model is unavailable.
+
+
+11. High-Level Architecture
+---------------------------
+ScaffoldPM follows a modular backend architecture.
+
+Main layers:
+
+1. API Layer
+   Handles HTTP requests and responses using FastAPI routes.
+
+2. Service / Module Layer
+   Contains business logic for document extraction, WBS generation, matching,
+   prediction, scheduling, and graph analysis.
+
+3. Data Model Layer
+   Contains Pydantic schemas for request/response data and SQLAlchemy models
+   for database persistence.
+
+4. Database Layer
+   Uses asynchronous SQLAlchemy sessions to store and retrieve project data.
+
+General workflow:
+
+1. User uploads a scope document and project details.
+2. API validates the payload.
+3. Document extractor converts the file into clean text.
+4. LLM generator creates a WBS.
+5. Matching module assigns tasks to team members.
+6. Prediction module estimates task durations.
+7. Scheduling module assigns start and end dates.
+8. Critical path module computes slack and critical tasks.
+9. CRUD layer saves the generated plan.
+10. API returns the final project plan.
+
+
+12. Main Project Directory Structure
+------------------------------------
+backend/
+  app/
+    main.py
+    api/
+      routes/
+        health.py
+        project.py
+    core/
+      config.py
+    db/
+      database.py
+      models.py
+      crud.py
+    models/
+      schemas.py
+    modules/
+      graph/
+        cpm.py
+      matching/
+        matcher.py
+      prediction/
+        predictor.py
+      scheduling/
+        optimizer.py
+      wbs/
+        document_extractor.py
+        generator.py
+  data/
+    datasets/
+      SiP_dataset.csv
+    models/
+      duration_model.pkl
+    train_model.py
+  requirements.txt
+  scaffoldpm.db
+
+frontend/
+  Empty directory in the current repository.
+
+
+13. Key Backend Files
+---------------------
+backend/app/main.py
+- Creates the FastAPI application.
+- Sets app title, description, version, and debug mode.
+- Adds CORS middleware for http://localhost:3000.
+- Registers health and project routers.
+- Initializes database tables during startup.
+
+backend/app/core/config.py
+- Defines application settings.
+- Reads environment variables from .env.
+- Requires OPENAI_API_KEY.
+- Uses sqlite+aiosqlite:///./scaffoldpm.db as the default database URL.
+
+backend/app/api/routes/health.py
+- Provides health check endpoint.
+- Provides a document extraction testing endpoint.
+
+backend/app/api/routes/project.py
+- Provides the main project planning endpoints.
+- Handles WBS generation, project retrieval, project listing, task status
+  updates, and task reassignment.
+
+backend/app/models/schemas.py
+- Defines Pydantic models used by the API and internal modules.
+- Includes TaskStatus, TaskType, TeamMember, Task, Activity, Phase, Project,
+  and WBSResponse.
+
+backend/app/db/models.py
+- Defines SQLAlchemy database tables.
+- Includes projects, phases, activities, tasks, team_members, and
+  project_members.
+
+backend/app/db/crud.py
+- Saves complete WBS/project structures.
+- Retrieves full project data.
+- Lists projects.
+- Updates task status.
+- Updates task assignment.
+
+backend/app/modules/wbs/document_extractor.py
+- Extracts and cleans text from uploaded documents.
+- Supports PDF, DOC/DOCX, and TXT.
+
+backend/app/modules/wbs/generator.py
+- Uses LangChain and OpenAI to generate the WBS.
+- Parses model output into structured Pydantic objects.
+- Resolves dependencies from task titles to task IDs.
+
+backend/app/modules/matching/matcher.py
+- Uses sentence-transformer embeddings for semantic matching.
+- Assigns tasks to team members using skill similarity, experience, and load.
+
+backend/app/modules/prediction/predictor.py
+- Loads backend/data/models/duration_model.pkl if present.
+- Predicts task duration using model features.
+- Uses heuristic estimation if the model file is not available.
+
+backend/app/modules/scheduling/optimizer.py
+- Schedules tasks based on dependencies and team member availability.
+- Uses working-day calculations and excludes weekends.
+
+backend/app/modules/graph/cpm.py
+- Builds a directed graph of task dependencies.
+- Performs topological sorting.
+- Calculates earliest start, earliest finish, latest start, latest finish,
+  slack, and critical tasks.
+
+backend/data/train_model.py
+- Trains an XGBoost regression model using SiP_dataset.csv.
+- Saves the trained model as duration_model.pkl.
+
+
+14. API Endpoints
+-----------------
+GET /api/health
+Purpose:
+- Check whether the backend is running.
+
+Response example:
+{
+  "status": "ok",
+  "app": "ScaffoldPM",
+  "debug": true
+}
+
+POST /api/health/extract
+Purpose:
+- Upload a document and return extracted text.
+
+Input:
+- Multipart file upload.
+
+Response:
+- JSON object containing extracted text.
+
+POST /api/project/generate-wbs
+Purpose:
+- Generate a full project plan from a scope document and metadata.
+
+Input:
+- file: uploaded scope document.
+- payload: JSON string containing project_name, start_date, end_date, and
+  team_members.
+
+Payload example:
+{
+  "project_name": "Inventory Management System",
+  "start_date": "2026-01-01",
+  "end_date": "2026-04-30",
+  "team_members": [
+    {
+      "id": "tm1",
+      "name": "Aayush",
+      "role": "Backend Developer",
+      "skills": ["Python", "FastAPI", "SQL"],
+      "experience": "mid"
+    }
+  ]
+}
+
+Output:
+- project object.
+- summary.
+- total_duration_days.
+- critical_path list.
+
+GET /api/project/
+Purpose:
+- List saved projects.
+
+Output:
+- List of project summary objects containing id, name, and created_at.
+
+GET /api/project/{project_id}
+Purpose:
+- Fetch a saved project with phases, activities, tasks, and team members.
+
+PATCH /api/project/task/status
+Purpose:
+- Update a task status.
+
+Input:
+{
+  "task_id": "task-id",
+  "new_status": "in_progress"
+}
+
+Valid statuses:
+- todo
+- in_progress
+- done
+
+PATCH /api/project/task/assign
+Purpose:
+- Reassign a task to another team member.
+
+Input:
+{
+  "task_id": "task-id",
+  "member_id": "member-id"
+}
+
+
+15. Data Models
+---------------
+TaskStatus:
+- todo
+- in_progress
+- done
+
+TaskType:
+- feature
+- bugfix
+- documentation
+- research
+- other
+
+TeamMember:
+- id
+- name
+- role
+- skills
+- experience
+
+Task:
+- id
+- activity_id
+- assigned_to
+- assigned_name
+- title
+- description
+- task_type
+- status
+- estimated_hours
+- start_date
+- end_date
+- dependencies
+- skills_required
+- is_critical
+- slack
+
+Activity:
+- id
+- phase_id
+- title
+- description
+- tasks
+
+Phase:
+- id
+- project_id
+- title
+- description
+- order
+- activities
+
+Project:
+- id
+- name
+- description
+- start_date
+- end_date
+- total_working_days
+- created_at
+- phases
+- team
+
+WBSResponse:
+- project
+- summary
+- total_duration_days
+
+
+16. Database Design
+-------------------
+The database is relational and implemented using SQLAlchemy ORM.
+
+Tables:
+
+1. projects
+Fields:
+- id: primary key
+- name
+- description
+- start_date
+- end_date
+- total_working_days
+- summary
+- total_duration_days
+- created_at
+
+2. team_members
+Fields:
+- id: primary key
+- name
+- role
+- skills: comma-separated text
+- experience
+
+3. project_members
+Purpose:
+- Junction table for many-to-many relationship between projects and team
+  members.
+
+Fields:
+- project_id
+- team_member_id
+
+4. phases
+Fields:
+- id: primary key
+- project_id: foreign key
+- title
+- description
+- order
+
+5. activities
+Fields:
+- id: primary key
+- phase_id: foreign key
+- title
+- description
+
+6. tasks
+Fields:
+- id: primary key
+- activity_id: foreign key
+- assigned_to: foreign key to team_members
+- assigned_name
+- title
+- description
+- task_type
+- status
+- estimated_hours
+- start_date
+- end_date
+- dependencies: comma-separated task IDs
+- skills_required: comma-separated skills
+- is_critical
+- slack
+
+Relationships:
+- One project has many phases.
+- One phase has many activities.
+- One activity has many tasks.
+- One project has many team members through project_members.
+- One team member can be assigned many tasks.
+
+
+17. Main Workflow in Detail
+---------------------------
+Step 1: Request Validation
+- The user sends a multipart request containing a scope document and a JSON
+  payload.
+- The payload is parsed and validated using Pydantic.
+
+Step 2: Document Text Extraction
+- The uploaded file is inspected using filename extension and content type.
+- PDF files are processed using pdfplumber.
+- If pdfplumber cannot extract text from a page, PyMuPDF is used as fallback.
+- DOC/DOCX files are processed using python-docx.
+- TXT files are decoded using UTF-8 or Latin-1 fallback.
+- Extracted text is cleaned by removing repeated headers, repeated footers,
+  page numbers, and unnecessary whitespace.
+
+Step 3: WBS Generation
+- The cleaned scope text, project details, and team member data are sent to an
+  LLM through LangChain.
+- The prompt instructs the model to create 4 to 6 phases.
+- Each phase should contain 3 to 6 activities.
+- Each activity should contain 4 to 8 tasks.
+- Every task should include title, description, type, required skills, and
+  dependencies.
+- The output is parsed into Pydantic models.
+- If parsing fails, the system retries once with a stricter instruction.
+
+Step 4: Dependency Resolution
+- The LLM returns dependencies as task titles.
+- The system normalizes task titles and maps dependency titles to generated
+  task IDs.
+- Dependencies that cannot be matched are ignored.
+
+Step 5: Task Assignment
+- Team member profiles are created from role, skills, and experience.
+- Task profiles are created from title, description, task type, and required
+  skills.
+- SentenceTransformer converts profiles into embeddings.
+- Cosine similarity is computed using normalized embeddings.
+- Assignment score considers semantic similarity, team member experience, task
+  complexity, and current workload.
+- More complex tasks prefer more experienced members.
+- Load penalty prevents assigning too many tasks to the same person.
+
+Step 6: Duration Estimation
+- The system tries to load duration_model.pkl.
+- If the trained model exists, it predicts estimated hours.
+- If the model does not exist, a heuristic estimate is used.
+- Heuristic estimation considers task type, assignee experience, number of
+  required skills, and description length.
+- Duration is clamped between 2 and 40 hours and rounded to the nearest 0.5
+  hour.
+
+Step 7: Scheduling
+- Tasks without dependencies are placed in the ready queue first.
+- Tasks are selected based on earliest feasible start date.
+- A task can start only after its dependencies are finished.
+- A task can start only when its assigned member is available.
+- Estimated hours are converted to working days using 8 hours per day.
+- Weekends are skipped.
+- Each task receives a start_date and end_date.
+
+Step 8: Critical Path Analysis
+- A directed graph is created where nodes are tasks and edges are dependencies.
+- NetworkX performs topological sorting.
+- The system calculates earliest start and finish times.
+- The system calculates latest start and finish times.
+- Slack is calculated as latest start minus earliest start.
+- Tasks with zero slack are marked as critical.
+- The API returns a list of critical task IDs.
+
+Step 9: Persistence
+- Team members are inserted if they do not already exist.
+- Project, phases, activities, and tasks are saved.
+- The generated plan can later be fetched by project ID.
+
+
+18. Algorithms Used
+-------------------
+1. Text Extraction and Cleaning
+- Removes repeated headers and footers.
+- Removes page numbers.
+- Reflows broken lines into paragraphs.
+- Keeps headings and list items readable.
+
+2. LLM-Based WBS Generation
+- Uses prompt engineering and Pydantic output parsing.
+- Converts unstructured scope text into structured planning data.
+
+3. Semantic Skill Matching
+- Uses all-MiniLM-L6-v2 embeddings.
+- Computes similarity between team member profiles and task profiles.
+- Adjusts score using experience multiplier and workload penalty.
+
+Formula concept:
+final_score = (semantic_similarity * experience_multiplier) / load_penalty
+
+4. Duration Estimation
+- ML model: XGBoost regression.
+- Features:
+  - task type value
+  - description word count
+  - required skills count
+  - assignee experience value
+  - heuristic hour estimate
+- Target:
+  - actual task hours from the dataset.
+
+5. Greedy Scheduling
+- Uses task dependencies and member availability.
+- Chooses ready tasks by earliest feasible start.
+- Updates member availability after scheduling a task.
+
+6. Critical Path Method
+- Uses directed acyclic graph logic.
+- Calculates earliest start, earliest finish, latest start, latest finish, and
+  slack.
+- Critical tasks are tasks with zero slack.
+
+
+19. Machine Learning Dataset
+----------------------------
+Dataset file:
+- backend/data/datasets/SiP_dataset.csv
+
+Important columns observed:
+- TaskNumber
+- Summary
+- Priority
+- RaisedByID
+- AssignedToID
+- AuthorisedByID
+- StatusCode
+- ProjectCode
+- ProjectBreakdownCode
+- Category
+- SubCategory
+- HoursEstimate
+- HoursActual
+- DeveloperID
+- DeveloperHoursActual
+- TaskPerformance
+- DeveloperPerformance
+
+Training script:
+- backend/data/train_model.py
+
+Model output:
+- backend/data/models/duration_model.pkl
+
+Training process:
+- Reads the CSV dataset using cp1252 encoding.
+- Converts HoursActual to numeric.
+- Removes rows where HoursActual is missing, less than or equal to zero, or
+  greater than 80.
+- Converts HoursEstimate to numeric and fills missing values with 0.
+- Infers task type from SubCategory, TaskType, or Category.
+- Calculates description word count.
+- Calculates required skills count.
+- Converts assignee experience to numeric value.
+- Trains XGBRegressor.
+- Saves the model using joblib.
+
+Model features:
+- task_type
+- description_words
+- skills_count
+- experience
+- HoursEstimate
+
+Model target:
+- HoursActual
+
+
+20. Heuristic Duration Estimation
+---------------------------------
+When the trained model is not found, ScaffoldPM uses rule-based estimation.
+
+Base hours:
+- feature: 16 hours
+- bugfix: 6 hours
+- documentation: 4 hours
+- research: 12 hours
+- other: 8 hours
+
+Experience factor:
+- junior: 1.2
+- mid: 1.0
+- senior: 0.85
+
+Additional factors:
+- Skills factor: number of required skills up to 6 multiplied by 1.5.
+- Text factor: description word count up to 300 words divided by 100 and
+  multiplied by 0.8.
+
+Final value:
+- Clamped between 2 and 40 hours.
+- Rounded to the nearest 0.5 hour.
+
+
+21. Scheduling Rules
+--------------------
+- Working day means Monday to Friday.
+- Saturday and Sunday are skipped.
+- One working day equals 8 hours.
+- Task duration in days is ceiling(estimated_hours / 8).
+- A task with no estimated hours receives a default duration of 1 day.
+- A dependency task must finish before the successor task begins.
+- A team member cannot work on two assigned tasks at the same time.
+- After a task ends, the assigned member becomes available on the next working
+  day.
+
+
+22. Critical Path Method Details
+--------------------------------
+The critical path method identifies tasks that directly affect the total
+project duration. ScaffoldPM calculates task slack by comparing early and late
+schedule values.
+
+Definitions:
+- Earliest Start: earliest time a task can begin.
+- Earliest Finish: earliest start plus task duration.
+- Latest Finish: latest time a task can finish without delaying the project.
+- Latest Start: latest finish minus task duration.
+- Slack: latest start minus earliest start.
+- Critical Task: task with zero slack.
+
+Benefit:
+- Helps the project manager identify tasks that require close monitoring.
+- Helps detect schedule risks early.
+- Helps prioritize management attention.
+
+
+23. Error Handling
+------------------
+The backend includes HTTP error handling for common failure cases:
+
+- Invalid JSON payload returns HTTP 400.
+- Invalid request schema returns HTTP 422.
+- Unsupported file type returns HTTP 400.
+- WBS generation failure returns HTTP 500.
+- Database save/fetch/update failures return HTTP 500.
+- Project not found returns HTTP 404.
+- Task not found returns HTTP 404.
+- Task or team member not found during reassignment returns HTTP 404.
+
+
+24. Security and Configuration
+------------------------------
+The application uses environment-based configuration.
+
+Important setting:
+- OPENAI_API_KEY is required.
+
+Default database:
+- sqlite+aiosqlite:///./scaffoldpm.db
+
+CORS:
+- Allows requests from http://localhost:3000.
+
+Security limitations:
+- No authentication is currently implemented.
+- No authorization or role-based access control is currently implemented.
+- Uploaded file size limits are not explicitly configured in the current code.
+- API key management depends on the environment file and deployment setup.
+
+
+25. Possible Frontend Features
+------------------------------
+The repository currently contains an empty frontend directory. A future
+frontend could include:
+
+- Project creation form.
+- Scope document upload screen.
+- Team member management screen.
+- WBS tree view.
+- Kanban board for task status.
+- Gantt chart for scheduled tasks.
+- Critical path highlighting.
+- Task reassignment interface.
+- Project list and project detail pages.
+- Dashboard with project duration, task count, and critical task count.
+
+
+26. Testing Strategy for Report
+-------------------------------
+Recommended testing sections for the final report:
+
+1. Unit Testing
+- Test document extraction for TXT, DOCX, and PDF files.
+- Test working-day calculation.
+- Test heuristic duration estimation.
+- Test task scheduling with dependencies.
+- Test critical path analysis using known task graphs.
+- Test string/list conversion helpers.
+
+2. Integration Testing
+- Test /api/project/generate-wbs with a sample scope document.
+- Test saving and fetching project data.
+- Test updating task status.
+- Test updating task assignment.
+- Test database initialization.
+
+3. API Testing
+- Use Swagger UI generated by FastAPI.
+- Use Postman or similar API testing tools.
+- Validate successful and error responses.
+
+4. ML Testing
+- Train the XGBoost model using the dataset.
+- Check if model file is created.
+- Compare predicted durations with actual historical values.
+- Verify fallback heuristic is used when the model file is absent.
+
+5. User Acceptance Testing
+- Provide a realistic scope document.
+- Verify generated phases, activities, and tasks are relevant.
+- Verify task assignments match team skills.
+- Verify schedule dates are reasonable.
+- Verify critical tasks are highlighted.
+
+
+27. Sample Test Cases
+---------------------
+Test Case 1: Health Check
+Input:
+- GET /api/health
+Expected Output:
+- status should be ok.
+
+Test Case 2: Unsupported File Upload
+Input:
+- Upload unsupported file type.
+Expected Output:
+- HTTP 400 with "Unsupported file type".
+
+Test Case 3: Generate WBS
+Input:
+- Valid scope document and project payload.
+Expected Output:
+- Project object with phases, activities, tasks, assignments, estimated hours,
+  dates, and critical path.
+
+Test Case 4: Fetch Project
+Input:
+- Existing project ID.
+Expected Output:
+- Full project data.
+
+Test Case 5: Fetch Invalid Project
+Input:
+- Non-existing project ID.
+Expected Output:
+- HTTP 404 with "Project not found".
+
+Test Case 6: Update Task Status
+Input:
+- Valid task ID and status "done".
+Expected Output:
+- Updated task with status done.
+
+Test Case 7: Reassign Task
+Input:
+- Valid task ID and team member ID.
+Expected Output:
+- Updated task with new assigned_to and assigned_name.
+
+Test Case 8: Critical Path
+Input:
+- Project with dependency chain.
+Expected Output:
+- Tasks with zero slack marked as critical.
+
+
+28. Strengths of the Project
+----------------------------
+- Uses AI to reduce manual project planning effort.
+- Converts unstructured documents into structured project data.
+- Combines multiple AI/ML methods in one practical workflow.
+- Uses semantic embeddings for skill-based task assignment.
+- Uses machine learning for duration prediction.
+- Provides fallback logic when ML model is unavailable.
+- Uses graph algorithms for critical path analysis.
+- Stores complete project structure in a relational database.
+- Provides REST APIs suitable for frontend integration.
+- Modular architecture makes the system easier to extend.
+
+
+29. Limitations
+---------------
+- The generated WBS quality depends on the LLM output.
+- The OpenAI API key is required for WBS generation.
+- The duration model depends on the quality and relevance of the training
+  dataset.
+- The scheduler uses a greedy approach and may not produce globally optimal
+  schedules.
+- Public holidays, leaves, part-time availability, and custom calendars are
+  not handled.
+- There is no authentication or user management.
+- The current repository does not include a completed frontend.
+- The database stores lists such as skills and dependencies as comma-separated
+  text rather than normalized related tables.
+- Dependency cycles are not explicitly handled before NetworkX topological
+  sorting.
+- File upload limits and malware scanning are not implemented.
+
+
+30. Future Enhancements
+-----------------------
+- Build a complete web frontend using React or Next.js.
+- Add authentication and role-based access control.
+- Add organization, user, and project workspace management.
+- Add drag-and-drop Kanban board.
+- Add Gantt chart visualization.
+- Add critical path visualization.
+- Add support for public holidays and custom working calendars.
+- Add leave management and individual availability.
+- Add advanced optimization using OR-Tools.
+- Add dependency cycle detection and user-friendly error messages.
+- Add normalized tables for skills and dependencies.
+- Add project export to PDF, Excel, or Word.
+- Add audit logs for task changes.
+- Add notification system for overdue critical tasks.
+- Add model evaluation metrics for duration prediction.
+- Add prompt/version logging for generated WBS outputs.
+- Add automated test suite and CI pipeline.
+- Add deployment using Docker.
+
+
+31. Suggested Final Year Report Chapter Structure
+-------------------------------------------------
+Chapter 1: Introduction
+- Background
+- Problem statement
+- Aim and objectives
+- Scope
+- Significance of the project
+
+Chapter 2: Literature Review
+- Project management systems
+- Work breakdown structure
+- Critical path method
+- Machine learning in effort estimation
+- NLP and LLMs in project planning
+- Existing tools and limitations
+
+Chapter 3: System Analysis
+- Existing system
+- Proposed system
+- Functional requirements
+- Non-functional requirements
+- Feasibility study
+- Use case descriptions
+
+Chapter 4: System Design
+- System architecture
+- Data flow diagram
+- Database design
+- API design
+- Module design
+- Algorithm descriptions
+
+Chapter 5: Implementation
+- Backend implementation
+- Document extraction module
+- WBS generation module
+- Skill matching module
+- Duration prediction module
+- Scheduling module
+- Critical path module
+- Database implementation
+
+Chapter 6: Testing and Evaluation
+- Testing strategy
+- Test cases
+- API testing
+- ML model testing
+- Result analysis
+- Limitations observed
+
+Chapter 7: Conclusion and Future Scope
+- Summary of achievements
+- Limitations
+- Future enhancements
+
+Appendices
+- API examples
+- Sample payloads
+- Sample generated WBS
+- Screenshots if frontend is later added
+- Source code references
+
+
+32. Suggested Diagrams for Report
+---------------------------------
+Use Case Diagram:
+- Actor: Project Manager
+- Use cases: Upload scope document, generate WBS, view project, update task
+  status, reassign task, view critical path.
+
+Data Flow Diagram Level 0:
+- Project Manager sends document and metadata.
+- ScaffoldPM processes input and returns project plan.
+- Database stores project data.
+
+Data Flow Diagram Level 1:
+- Document Extraction
+- WBS Generation
+- Task Assignment
+- Duration Estimation
+- Scheduling
+- Critical Path Analysis
+- Database Persistence
+
+Entity Relationship Diagram:
+- Project
+- Phase
+- Activity
+- Task
+- TeamMember
+- ProjectMember junction table
+
+Sequence Diagram:
+- User sends generate request.
+- API validates request.
+- Extractor extracts text.
+- WBS generator calls LLM.
+- Matcher assigns tasks.
+- Predictor estimates duration.
+- Scheduler schedules tasks.
+- CPM module analyzes critical path.
+- CRUD saves project.
+- API returns response.
+
+Architecture Diagram:
+- Client/frontend
+- FastAPI backend
+- AI/ML modules
+- Database
+- External OpenAI service
+
+
+33. Suggested Abstract
+----------------------
+ScaffoldPM is an AI-driven project planning and optimization system designed to
+automate the generation of structured project plans from unstructured scope
+documents. The system accepts a project scope document and basic project
+metadata, extracts clean text, and uses a large language model to produce a
+work breakdown structure containing phases, activities, tasks, required skills,
+and dependencies. It then applies semantic skill matching to assign tasks to
+appropriate team members, estimates task duration using a trained XGBoost model
+or heuristic fallback, schedules tasks according to dependencies and working
+day constraints, and identifies critical tasks using the critical path method.
+The backend is implemented using FastAPI, Pydantic, SQLAlchemy, SQLite,
+LangChain, sentence-transformers, XGBoost, and NetworkX. ScaffoldPM reduces
+manual planning effort, improves task organization, supports project tracking,
+and provides a foundation for future frontend visualization and advanced
+optimization features.
+
+
+34. Suggested Conclusion
+------------------------
+ScaffoldPM demonstrates how AI and machine learning can be integrated into a
+project management workflow to automate planning activities that are usually
+performed manually. The system successfully converts project scope documents
+into structured WBS data, assigns tasks based on team skills, estimates
+duration, schedules tasks, and identifies critical path activities. The modular
+backend architecture makes the system maintainable and extensible. Although the
+current version has limitations such as lack of authentication, incomplete
+frontend support, and greedy scheduling, it provides a strong foundation for an
+intelligent project planning platform. Future enhancements can improve the user
+interface, scheduling optimization, collaboration, and deployment readiness.
+
+
+35. How to Run the Backend
+--------------------------
+1. Move into the backend directory.
+2. Create and activate a Python virtual environment.
+3. Install dependencies from requirements.txt.
+4. Create a .env file containing OPENAI_API_KEY.
+5. Start the FastAPI server with uvicorn.
+
+Example command:
+uvicorn app.main:app --reload
+
+Expected local API:
+- http://localhost:8000
+
+Swagger documentation:
+- http://localhost:8000/docs
+
+
+36. Important Notes for Report Writer
+-------------------------------------
+- Mention that the frontend directory exists but is empty in the current
+  repository.
+- Focus the report on backend architecture and AI-assisted planning workflow.
+- Avoid claiming that authentication, deployment, or full frontend features are
+  already implemented.
+- Mention that OR-Tools is listed as a dependency, but the current scheduler is
+  a custom greedy scheduler.
+- Mention that duration prediction has both a trained model path and fallback
+  heuristic logic.
+- Mention that the WBS generator requires an OpenAI API key.
+- Mention that the database is initialized automatically on FastAPI startup.
+- Mention that task lists, skills, and dependencies are stored as
+  comma-separated text in the database.
+- Mention that critical path analysis uses NetworkX directed graphs.
+- Mention that scheduling currently excludes weekends but not public holidays.
+
