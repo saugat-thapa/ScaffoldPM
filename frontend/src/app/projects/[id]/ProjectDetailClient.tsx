@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   AlertCircle,
@@ -23,11 +23,12 @@ import {
   getProject,
   type TaskStatus,
   type WBSResponse,
+  updateTaskStatus as updateTaskStatusApi,
 } from "@/lib/api";
 
 const statusStyles: Record<TaskStatus, string> = {
   todo: "bg-slate-100 text-slate-700",
-  in_progress: "bg-amber-100 text-amber-800",
+  in_progress: "bg-amber-100 text-amber-800 line-clamp-1",
   done: "bg-emerald-100 text-emerald-800",
 };
 
@@ -148,6 +149,58 @@ export function ProjectDetailClient({ id }: { id: string }) {
   const [collapsedPhaseIds, setCollapsedPhaseIds] = useState<Set<string>>(
     new Set(),
   );
+
+  // Drag-and-drop state
+  const [taskStatusOverrides, setTaskStatusOverrides] = useState<
+    Record<string, TaskStatus>
+  >({});
+  const [dragOverColumn, setDragOverColumn] = useState<TaskStatus | null>(null);
+  const draggingTaskId = useRef<string | null>(null);
+
+  function handleDragStart(taskId: string) {
+    draggingTaskId.current = taskId;
+  }
+
+  function handleDragEnd() {
+    draggingTaskId.current = null;
+    setDragOverColumn(null);
+  }
+
+  function handleDragOver(e: React.DragEvent, column: TaskStatus) {
+    e.preventDefault();
+    setDragOverColumn(column);
+  }
+
+  function handleDragLeave() {
+    setDragOverColumn(null);
+  }
+
+  async function handleDrop(targetStatus: TaskStatus) {
+    const taskId = draggingTaskId.current;
+    if (!taskId) return;
+
+    // Find current status (respecting overrides)
+    const allRows = data ? flattenTasks(data.project.phases) : [];
+    const row = allRows.find((r) => r.task.id === taskId);
+    const currentStatus: TaskStatus =
+      taskStatusOverrides[taskId] ?? row?.task.status ?? "todo";
+
+    if (currentStatus === targetStatus) {
+      setDragOverColumn(null);
+      return;
+    }
+
+    // Optimistic update
+    setTaskStatusOverrides((prev) => ({ ...prev, [taskId]: targetStatus }));
+    setDragOverColumn(null);
+
+    try {
+      await updateTaskStatusApi(taskId, targetStatus);
+    } catch {
+      // Rollback
+      setTaskStatusOverrides((prev) => ({ ...prev, [taskId]: currentStatus }));
+    }
+  }
 
   useEffect(() => {
     let active = true;
@@ -470,34 +523,34 @@ export function ProjectDetailClient({ id }: { id: string }) {
 
                 <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                   <div className="rounded-xl border border-[#DEDEDE] bg-white px-4 py-3">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-700">
                       Visible tasks
                     </p>
-                    <p className="mt-2 text-2xl font-semibold text-slate-900">
+                    <p className="mt-2 text-2xl font-semibold text-blue-700">
                       {visibleTaskRows.length}
                     </p>
                   </div>
                   <div className="rounded-xl border border-[#DEDEDE] bg-white px-4 py-3">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-700">
                       Critical tasks
                     </p>
-                    <p className="mt-2 text-2xl font-semibold text-slate-900">
+                    <p className="mt-2 text-2xl font-semibold text-red-700">
                       {criticalTaskCount}
                     </p>
                   </div>
                   <div className="rounded-xl border border-[#DEDEDE] bg-white px-4 py-3">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-700">
                       Unassigned tasks
                     </p>
-                    <p className="mt-2 text-2xl font-semibold text-slate-900">
+                    <p className="mt-2 text-2xl font-semibold text-purple-700">
                       {unassignedTaskCount}
                     </p>
                   </div>
                   <div className="rounded-xl border border-[#DEDEDE] bg-white px-4 py-3">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-700">
                       Selected team
                     </p>
-                    <p className="mt-2 text-2xl font-semibold text-slate-900">
+                    <p className="mt-2 text-2xl font-semibold text-green-700">
                       {effectiveTeamMembers.length}
                     </p>
                   </div>
@@ -636,7 +689,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                                     </td>
                                     <td className="px-6 py-5">
                                       <span
-                                        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${statusStyles[task.status]}`}
+                                        className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold  ${statusStyles[task.status]}`}
                                       >
                                         {statusLabels[task.status]}
                                       </span>
@@ -668,14 +721,27 @@ export function ProjectDetailClient({ id }: { id: string }) {
             ) : (
               <div className="grid gap-5 px-6 py-6 xl:grid-cols-3">
                 {kanbanColumns.map((column) => {
-                  const columnTasks = visibleTaskRows.filter(
-                    ({ task }) => task.status === column.key,
-                  );
+                  // Apply local status overrides for display
+                  const columnTasks = visibleTaskRows.filter(({ task }) => {
+                    const effectiveStatus =
+                      taskStatusOverrides[task.id] ?? task.status;
+                    return effectiveStatus === column.key;
+                  });
+                  const isOver = dragOverColumn === column.key;
 
                   return (
                     <section
                       key={column.key}
-                      className="rounded-3xl border border-[#d3d3d3] bg-white p-4"
+                      onDragOver={(e) => handleDragOver(e, column.key)}
+                      onDragLeave={handleDragLeave}
+                      onDrop={() => handleDrop(column.key)}
+                      className={`rounded-3xl border p-4 transition-colors duration-150 ${
+                        column.key === "todo"
+                          ? "border-slate-400 bg-slate-50"
+                          : column.key === "in_progress"
+                            ? "border-amber-400 bg-amber-50"
+                            : "border-emerald-400 bg-emerald-50"
+                      }`}
                     >
                       <div className="mb-4 flex items-start justify-between gap-3">
                         <div>
@@ -700,20 +766,26 @@ export function ProjectDetailClient({ id }: { id: string }) {
                         <span
                           className={`text-xs font-semibold uppercase tracking-[0.16em] ${
                             column.key === "todo"
-                              ? "text-[#A1A1A1] "
+                              ? "text-[#A1A1A1]"
                               : column.key === "in_progress"
-                                ? "text-[#FF8B32] "
-                                : "text-[#00640F] "
+                                ? "text-[#FF8B32]"
+                                : "text-[#00640F]"
                           }`}
                         >
                           {columnTasks.length}
                         </span>
                       </div>
 
-                      <div className="space-y-3">
+                      <div className="min-h-[60px] space-y-3">
                         {columnTasks.length === 0 ? (
-                          <div className="rounded-2xl border border-dashed border-slate-200 bg-[#FBFBFB] px-4 py-6 text-center text-sm text-slate-500">
-                            No tasks in this column
+                          <div
+                            className={`rounded-2xl border border-dashed px-4 py-6 text-center text-sm transition-colors ${
+                              isOver
+                                ? "border-slate-400 bg-white text-slate-600"
+                                : "border-slate-200 bg-[#FBFBFB] text-slate-500"
+                            }`}
+                          >
+                            {isOver ? "Drop here" : "No tasks in this column"}
                           </div>
                         ) : (
                           columnTasks.map(
@@ -727,7 +799,10 @@ export function ProjectDetailClient({ id }: { id: string }) {
                             }) => (
                               <article
                                 key={`${phaseId}-${activityId}-${task.id}`}
-                                className="rounded-2xl border border-[#CCCCCC] bg-[#FBFBFB] p-4 "
+                                draggable
+                                onDragStart={() => handleDragStart(task.id)}
+                                onDragEnd={handleDragEnd}
+                                className="rounded-2xl border border-[#CCCCCC] bg-white p-4 cursor-grab active:cursor-grabbing active:opacity-60 active:scale-[0.98] transition-all select-none"
                               >
                                 <div className="flex flex-wrap items-center gap-2">
                                   <p className="font-semibold text-slate-900">
@@ -745,15 +820,15 @@ export function ProjectDetailClient({ id }: { id: string }) {
                                   </p>
                                 ) : null}
                                 <div className="mt-4 space-y-3 text-sm text-slate-600">
-                                  <div className="rounded-2xl bg-[#ebebeb] px-3 py-2">
+                                  <div className="rounded-2xl bg-white border border-blue-300 px-3 py-2">
                                     <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
                                       Phase
                                     </p>
                                     <p className="mt-1 font-medium text-slate-800">
-                                      Phase {phaseOrder}: {phaseTitle}
+                                      {phaseTitle}
                                     </p>
                                   </div>
-                                  <div className="rounded-2xl bg-[#ebebeb] px-3 py-2">
+                                  <div className="rounded-2xl bg-white border border-blue-300 px-3 py-2">
                                     <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
                                       Activity
                                     </p>
@@ -761,12 +836,12 @@ export function ProjectDetailClient({ id }: { id: string }) {
                                       {activityTitle}
                                     </p>
                                   </div>
-                                  <div className="grid grid-cols-2 gap-3">
+                                  <aside className="grid grid-cols-3 gap-3">
                                     <div>
                                       <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
                                         Assignee
                                       </p>
-                                      <p className="mt-1 font-medium text-slate-800">
+                                      <p className="mt-1 font-normal text-sm text-slate-800">
                                         {task.assigned_name || "Unassigned"}
                                       </p>
                                     </div>
@@ -774,20 +849,20 @@ export function ProjectDetailClient({ id }: { id: string }) {
                                       <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
                                         Estimate
                                       </p>
-                                      <p className="mt-1 font-medium text-slate-800">
+                                      <p className="mt-1 font-normal text-sm text-slate-800">
                                         {formatHours(task.estimated_hours)}
                                       </p>
                                     </div>
-                                  </div>
-                                  <div>
-                                    <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
-                                      Schedule
-                                    </p>
-                                    <p className="mt-1 font-medium text-slate-800">
-                                      {formatDate(task.start_date)} to{" "}
-                                      {formatDate(task.end_date)}
-                                    </p>
-                                  </div>
+                                    <div>
+                                      <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
+                                        Schedule
+                                      </p>
+                                      <p className="mt-1 font-normal text-sm text-slate-800">
+                                        {formatDate(task.start_date)} -{" "}
+                                        {formatDate(task.end_date)}
+                                      </p>
+                                    </div>
+                                  </aside>
                                   {task.skills_required.length > 0 ? (
                                     <div className="flex flex-wrap gap-2">
                                       {task.skills_required.map((skill) => (
