@@ -40,13 +40,8 @@ export function AppSidebar({
       title: "Main",
       items: [
         {
-          title: "Home",
-          url: "/",
-          icon: "lucide:home",
-        },
-        {
           title: "Dashboard",
-          url: "/projects",
+          url: "/",
           icon: "lucide:layout-dashboard",
         },
       ],

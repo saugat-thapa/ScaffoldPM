@@ -150,7 +150,7 @@ export default function NewProjectPage() {
 
   const prevStep = () => {
     if (step > 1) setStep(step - 1);
-    else router.push("/projects");
+    else router.push("/");
   };
 
   const toggleTempMember = (id: string) => {
@@ -208,13 +208,13 @@ export default function NewProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] pt-36 pb-16">
+    <div className="min-h-screen bg-[#F6F6F6] pt-36 pb-16">
       <div className="flex items-center justify-center gap-20">
         <main className="w-full max-w-2xl px-6">
           {/* Header */}
           <div className="flex items-center mb-12">
             <button
-              onClick={() => router.push("/projects")}
+              onClick={() => router.push("/")}
               className="p-2 hover:bg-slate-200 rounded-full transition-colors mr-4"
             >
               <X className="w-6 h-6 text-slate-700" />

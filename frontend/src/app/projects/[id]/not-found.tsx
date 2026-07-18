@@ -17,7 +17,7 @@ export default function ProjectNotFound() {
         </p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
           <Link
-            href="/projects"
+            href="/"
             className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
           >
             Back to dashboard
