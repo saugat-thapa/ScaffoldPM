@@ -320,53 +320,32 @@ export function ProjectDetailClient({ id }: { id: string }) {
               <h1 className="mt-2 text-4xl font-bold tracking-tight text-slate-900">
                 {project.name}
               </h1>
-              <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">
+              <p className="mt-3  text-base leading-7 text-slate-600">
                 {project.description || "No project description was provided."}
               </p>
             </div>
-          </div>
-
-          <div className="rounded-3x border rounded-lg p-6 ">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
-              Generated Overview
-            </p>
-            <dl className="mt-4 grid grid-cols-2 gap-4 text-sm lg:grid-cols-3">
-              <div className="rounded-2xl bg-white/80 p-4">
-                <dt className="text-slate-500">Created</dt>
-                <dd className="mt-1 font-semibold text-slate-900">
-                  {formatDate(project.created_at)}
-                </dd>
-              </div>
-              <div className="rounded-2xl bg-white/80 p-4">
-                <dt className="text-slate-500">Tasks</dt>
-                <dd className="mt-1 font-semibold text-slate-900">
-                  {taskCount}
-                </dd>
-              </div>
-              <div className="rounded-2xl bg-white/80 p-4">
-                <dt className="text-slate-500">Working days</dt>
-                <dd className="mt-1 font-semibold text-slate-900">
-                  {project.total_working_days}
-                </dd>
-              </div>
-              <div className="rounded-2xl bg-white/80 p-4">
-                <dt className="text-slate-500">Planned duration</dt>
-                <dd className="mt-1 font-semibold text-slate-900">
-                  {total_duration_days} days
-                </dd>
-              </div>
-              <div className="rounded-2xl bg-white/80 p-4">
-                <dt className="text-slate-500">Critical tasks</dt>
-                <dd className="mt-1 font-semibold text-slate-900">
-                  {criticalTaskCount}
-                </dd>
-              </div>
-            </dl>
+            <div className="flex items-center gap-6">
+              <span className="text-sm p-2 px-3 bg-white border-[#dedede] border rounded-2xl">
+                Created: {formatDate(project.created_at)}
+              </span>
+              <span className="text-sm p-2 px-3 bg-white border-[#dedede] border rounded-2xl">
+                Tasks: {taskCount}
+              </span>
+              <span className="text-sm p-2 px-3 bg-white border-[#dedede] border rounded-2xl">
+                Working Days: {project.total_working_days}
+              </span>
+              <span className="text-sm p-2 px-3 bg-white border-[#dedede] border rounded-2xl">
+                Panned Duration: {project.total_working_days}
+              </span>
+              <span className="text-sm p-2 px-3 bg-white border-[#dedede] border rounded-2xl">
+                Critical Tasks: {criticalTaskCount}
+              </span>
+            </div>
           </div>
         </div>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-xl border border-slate-300 bg-white p-6 ">
+          <div className="rounded-2xl border border-slate-300 bg-white p-6 ">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-blue-100 p-3 text-blue-700">
                 <CalendarDays className="h-5 w-5" />
@@ -381,7 +360,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-300 bg-white p-6 ">
+          <div className="rounded-2xl border border-slate-300 bg-white p-6 ">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-sky-100 p-3 text-sky-700">
                 <FolderKanban className="h-5 w-5" />
@@ -395,7 +374,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-300 bg-white p-6">
+          <div className="rounded-2xl border border-slate-300 bg-white p-6">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-violet-100 p-3 text-violet-700">
                 <Users className="h-5 w-5" />
@@ -409,7 +388,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-300 bg-white p-6 ">
+          <div className="rounded-2xl border border-slate-300 bg-white p-6 ">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-amber-100 p-3 text-amber-700">
                 <Clock3 className="h-5 w-5" />
@@ -433,8 +412,8 @@ export function ProjectDetailClient({ id }: { id: string }) {
         </section>
 
         <section className="space-y-6">
-          <section className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
-            <div className="sticky top-4 z-10 border-b border-slate-100 bg-linear-to-r from-slate-50/95 to-white/95 px-6 py-5 backdrop-blur">
+          <section className="overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-sm">
+            <div className="sticky top-4 z-10 border-b border-slate-100 bg-white px-6 py-5">
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                   <div>
@@ -446,7 +425,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                     </h2>
                   </div>
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                    <div className="inline-flex rounded-2xl bg-slate-100 p-1">
+                    <div className="inline-flex rounded-2xl bg-[#F6F6F6] border border-[#DEDEDE] p-1">
                       <button
                         type="button"
                         onClick={() => setViewMode("table")}
@@ -490,7 +469,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                  <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-sm">
+                  <div className="rounded-xl border border-[#DEDEDE] bg-white px-4 py-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
                       Visible tasks
                     </p>
@@ -498,7 +477,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                       {visibleTaskRows.length}
                     </p>
                   </div>
-                  <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-sm">
+                  <div className="rounded-xl border border-[#DEDEDE] bg-white px-4 py-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
                       Critical tasks
                     </p>
@@ -506,7 +485,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                       {criticalTaskCount}
                     </p>
                   </div>
-                  <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-sm">
+                  <div className="rounded-xl border border-[#DEDEDE] bg-white px-4 py-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
                       Unassigned tasks
                     </p>
@@ -514,7 +493,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                       {unassignedTaskCount}
                     </p>
                   </div>
-                  <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-sm">
+                  <div className="rounded-xl border border-[#DEDEDE] bg-white px-4 py-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
                       Selected team
                     </p>
@@ -543,7 +522,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
               <div className="overflow-x-auto">
                 <table className="min-w-full border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-100 bg-slate-50/80 text-left text-xs uppercase tracking-[0.16em] text-slate-500">
+                    <tr className=" text-left text-xs uppercase tracking-[0.16em] text-slate-500">
                       <th className="px-6 py-4 font-semibold">Task</th>
                       <th className="px-6 py-4 font-semibold">Phase</th>
                       <th className="px-6 py-4 font-semibold">Activity</th>
@@ -559,12 +538,12 @@ export function ProjectDetailClient({ id }: { id: string }) {
 
                       return (
                         <Fragment key={phase.id}>
-                          <tr className="border-b border-slate-200 bg-slate-50/90">
-                            <td colSpan={7} className="px-4 py-3">
+                          <tr className="border-b border-slate-200 bg-white ">
+                            <td colSpan={7} className="px-4 py-3 ">
                               <button
                                 type="button"
                                 onClick={() => togglePhase(phase.id)}
-                                className="flex w-full items-center justify-between gap-3 rounded-2xl px-2 py-2 text-left transition-colors hover:bg-white"
+                                className="flex w-full items-center justify-between gap-3 rounded-2xl px-2 py-2 text-left transition-colors bg-white hover:bg-[#F1F1F1]"
                               >
                                 <div className="flex items-center gap-3">
                                   <span className="text-slate-500">
@@ -696,25 +675,44 @@ export function ProjectDetailClient({ id }: { id: string }) {
                   return (
                     <section
                       key={column.key}
-                      className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4"
+                      className="rounded-3xl border border-[#d3d3d3] bg-white p-4"
                     >
                       <div className="mb-4 flex items-start justify-between gap-3">
                         <div>
-                          <h3 className="text-lg font-semibold text-slate-900">
-                            {column.title}
-                          </h3>
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`p-1.5 rounded-full border-2 ${
+                                column.key === "todo"
+                                  ? "bg-[#CCCCCC] border-[#A1A1A1]"
+                                  : column.key === "in_progress"
+                                    ? "bg-[#FFE3CE] border-[#FF8B32]"
+                                    : "bg-[#EAFFDB] border-[#00640F]"
+                              }`}
+                            ></div>
+                            <h3 className="text-lg font-semibold text-slate-900">
+                              {column.title}
+                            </h3>
+                          </div>
                           <p className="mt-1 text-sm text-slate-500">
                             {column.subtitle}
                           </p>
                         </div>
-                        <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 shadow-sm">
+                        <span
+                          className={`text-xs font-semibold uppercase tracking-[0.16em] ${
+                            column.key === "todo"
+                              ? "text-[#A1A1A1] "
+                              : column.key === "in_progress"
+                                ? "text-[#FF8B32] "
+                                : "text-[#00640F] "
+                          }`}
+                        >
                           {columnTasks.length}
                         </span>
                       </div>
 
                       <div className="space-y-3">
                         {columnTasks.length === 0 ? (
-                          <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 px-4 py-6 text-center text-sm text-slate-500">
+                          <div className="rounded-2xl border border-dashed border-slate-200 bg-[#FBFBFB] px-4 py-6 text-center text-sm text-slate-500">
                             No tasks in this column
                           </div>
                         ) : (
@@ -729,7 +727,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                             }) => (
                               <article
                                 key={`${phaseId}-${activityId}-${task.id}`}
-                                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+                                className="rounded-2xl border border-[#CCCCCC] bg-[#FBFBFB] p-4 "
                               >
                                 <div className="flex flex-wrap items-center gap-2">
                                   <p className="font-semibold text-slate-900">
@@ -747,7 +745,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                                   </p>
                                 ) : null}
                                 <div className="mt-4 space-y-3 text-sm text-slate-600">
-                                  <div className="rounded-2xl bg-slate-50 px-3 py-2">
+                                  <div className="rounded-2xl bg-[#ebebeb] px-3 py-2">
                                     <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
                                       Phase
                                     </p>
@@ -755,7 +753,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                                       Phase {phaseOrder}: {phaseTitle}
                                     </p>
                                   </div>
-                                  <div className="rounded-2xl bg-slate-50 px-3 py-2">
+                                  <div className="rounded-2xl bg-[#ebebeb] px-3 py-2">
                                     <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
                                       Activity
                                     </p>
