@@ -8,7 +8,9 @@ import { getProjects, type ProjectSummary } from "@/lib/api";
 
 export function ProjectsDashboardClient() {
   const [projects, setProjects] = useState<ProjectSummary[]>([]);
-  const [state, setState] = useState<"loading" | "success" | "error">("loading");
+  const [state, setState] = useState<"loading" | "success" | "error">(
+    "loading",
+  );
 
   useEffect(() => {
     let active = true;
@@ -42,7 +44,7 @@ export function ProjectsDashboardClient() {
   }, []);
 
   return (
-    <main className="flex-1 w-full bg-slate-50 text-slate-900 p-8 md:p-16">
+    <main className="flex-1 w-full bg-[#F6F6F6] text-slate-900 p-8 md:p-16">
       <div className="max-w-6xl mx-auto space-y-8">
         <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
@@ -62,7 +64,7 @@ export function ProjectsDashboardClient() {
         </header>
 
         {state === "loading" ? (
-          <div className="flex min-h-[320px] flex-col items-center justify-center rounded-xl border border-slate-200 bg-white text-center">
+          <div className="flex min-h-[320px] flex-col items-center justify-center rounded-xl border border-slate-300 bg-white text-center">
             <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
             <h3 className="mt-4 text-lg font-medium text-slate-800">
               Loading projects
@@ -82,8 +84,8 @@ export function ProjectsDashboardClient() {
               Unable to load projects
             </h3>
             <p className="mt-1 max-w-md text-slate-500">
-              The dashboard couldn&apos;t fetch the saved project list even though projects may
-              already exist in the database.
+              The dashboard couldn&apos;t fetch the saved project list even
+              though projects may already exist in the database.
             </p>
             <button
               type="button"
@@ -114,7 +116,7 @@ export function ProjectsDashboardClient() {
                 <Link
                   key={project.id}
                   href={`/projects/${project.id}`}
-                  className="group rounded-xl border border-slate-200 bg-white p-6 transition-all hover:border-blue-300 hover:shadow-md"
+                  className="group rounded-xl border border-slate-300 bg-white p-6 transition-all hover:border-blue-300 hover:shadow-md"
                 >
                   <div className="flex items-start justify-between">
                     <h3 className="text-xl font-semibold text-slate-800 transition-colors group-hover:text-blue-600">
@@ -122,7 +124,12 @@ export function ProjectsDashboardClient() {
                     </h3>
                   </div>
                   <div className="mt-4 flex items-center text-sm text-slate-500">
-                    <svg className="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="mr-1.5 h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"

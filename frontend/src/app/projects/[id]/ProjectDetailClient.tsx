@@ -25,6 +25,11 @@ import {
   type WBSResponse,
   updateTaskStatus as updateTaskStatusApi,
 } from "@/lib/api";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const statusStyles: Record<TaskStatus, string> = {
   todo: "bg-slate-100 text-slate-700",
@@ -360,7 +365,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
           <div className="space-y-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+              className="inline-flex w-fit items-center gap-2 rounded-2xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-400 hover:bg-slate-50 hover:shadow-md"
             >
               <ArrowLeft className="h-4 w-4" />
               Back to dashboard
@@ -797,86 +802,128 @@ export function ProjectDetailClient({ id }: { id: string }) {
                               activityTitle,
                               task,
                             }) => (
-                              <article
+                              <Tooltip
                                 key={`${phaseId}-${activityId}-${task.id}`}
-                                draggable
-                                onDragStart={() => handleDragStart(task.id)}
-                                onDragEnd={handleDragEnd}
-                                className="rounded-2xl border border-[#CCCCCC] bg-white p-4 cursor-grab active:cursor-grabbing active:opacity-60 active:scale-[0.98] transition-all select-none"
                               >
-                                <div className="flex flex-wrap items-center gap-2">
-                                  <p className="font-semibold text-slate-900">
-                                    {task.title}
-                                  </p>
-                                  {task.is_critical ? (
-                                    <span className="rounded-full bg-rose-100 px-2.5 py-1 text-xs font-semibold text-rose-700">
-                                      Critical
-                                    </span>
+                                <TooltipTrigger
+                                  render={
+                                    <article
+                                      draggable
+                                      onDragStart={() =>
+                                        handleDragStart(task.id)
+                                      }
+                                      onDragEnd={handleDragEnd}
+                                      className="cursor-grab select-none rounded-2xl border border-[#CCCCCC] bg-white px-4 py-3 transition-all hover:border-slate-400 hover:shadow-sm active:scale-[0.98] active:cursor-grabbing active:opacity-60"
+                                    >
+                                      <p className="line-clamp-1 text-sm font-semibold text-slate-900">
+                                        {task.title}
+                                      </p>
+                                      <div className="mt-2 flex items-center justify-between gap-2">
+                                        <p className="line-clamp-1 text-xs text-slate-500">
+                                          {task.assigned_name || "Unassigned"}
+                                        </p>
+                                        <span
+                                          className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${
+                                            task.is_critical
+                                              ? "bg-rose-100 text-rose-700"
+                                              : "bg-slate-100 text-slate-600"
+                                          }`}
+                                        >
+                                          {task.is_critical
+                                            ? "Critical"
+                                            : "Non-critical"}
+                                        </span>
+                                      </div>
+                                    </article>
+                                  }
+                                />
+                                <TooltipContent
+                                  side="top"
+                                  align="start"
+                                  sideOffset={10}
+                                  className="max-w-sm flex-col items-start gap-3 rounded-2xl bg-slate-900 p-4 text-slate-50 shadow-xl"
+                                >
+                                  <div className="space-y-2">
+                                    <div className="flex flex-wrap items-center gap-2">
+                                      <p className="text-sm font-semibold text-white">
+                                        {task.title}
+                                      </p>
+                                      {task.is_critical ? (
+                                        <span className="rounded-full bg-rose-500/20 px-2 py-0.5 text-[11px] font-semibold text-rose-100">
+                                          Critical
+                                        </span>
+                                      ) : null}
+                                    </div>
+                                    <p className="text-xs uppercase tracking-[0.16em] text-slate-300">
+                                      Phase {phaseOrder} / {activityTitle}
+                                    </p>
+                                  </div>
+
+                                  {task.description ? (
+                                    <p className="text-sm leading-6 text-slate-200">
+                                      {task.description}
+                                    </p>
                                   ) : null}
-                                </div>
-                                {task.description ? (
-                                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                                    {task.description}
-                                  </p>
-                                ) : null}
-                                <div className="mt-4 space-y-3 text-sm text-slate-600">
-                                  <div className="rounded-2xl bg-white border border-blue-300 px-3 py-2">
-                                    <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
-                                      Phase
-                                    </p>
-                                    <p className="mt-1 font-medium text-slate-800">
-                                      {phaseTitle}
-                                    </p>
-                                  </div>
-                                  <div className="rounded-2xl bg-white border border-blue-300 px-3 py-2">
-                                    <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
-                                      Activity
-                                    </p>
-                                    <p className="mt-1 font-medium text-slate-800">
-                                      {activityTitle}
-                                    </p>
-                                  </div>
-                                  <aside className="grid grid-cols-3 gap-3">
+
+                                  <div className="grid w-full grid-cols-2 gap-3 text-sm">
                                     <div>
-                                      <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
+                                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                                        Phase
+                                      </p>
+                                      <p className="mt-1 text-slate-100">
+                                        {phaseTitle}
+                                      </p>
+                                    </div>
+                                    <div>
+                                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                                        Activity
+                                      </p>
+                                      <p className="mt-1 text-slate-100">
+                                        {activityTitle}
+                                      </p>
+                                    </div>
+                                    <div>
+                                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                                         Assignee
                                       </p>
-                                      <p className="mt-1 font-normal text-sm text-slate-800">
+                                      <p className="mt-1 text-slate-100">
                                         {task.assigned_name || "Unassigned"}
                                       </p>
                                     </div>
                                     <div>
-                                      <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
+                                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                                         Estimate
                                       </p>
-                                      <p className="mt-1 font-normal text-sm text-slate-800">
+                                      <p className="mt-1 text-slate-100">
                                         {formatHours(task.estimated_hours)}
                                       </p>
                                     </div>
-                                    <div>
-                                      <p className="text-xs uppercase tracking-[0.16em] text-slate-400">
-                                        Schedule
-                                      </p>
-                                      <p className="mt-1 font-normal text-sm text-slate-800">
-                                        {formatDate(task.start_date)} -{" "}
-                                        {formatDate(task.end_date)}
-                                      </p>
-                                    </div>
-                                  </aside>
+                                  </div>
+
+                                  <div className="w-full">
+                                    <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                                      Schedule
+                                    </p>
+                                    <p className="mt-1 text-sm text-slate-100">
+                                      {formatDate(task.start_date)} -{" "}
+                                      {formatDate(task.end_date)}
+                                    </p>
+                                  </div>
+
                                   {task.skills_required.length > 0 ? (
-                                    <div className="flex flex-wrap gap-2">
+                                    <div className="flex w-full flex-wrap gap-2">
                                       {task.skills_required.map((skill) => (
                                         <span
                                           key={skill}
-                                          className="rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700"
+                                          className="rounded-full bg-white/10 px-2 py-1 text-[11px] font-medium text-slate-100"
                                         >
                                           {skill}
                                         </span>
                                       ))}
                                     </div>
                                   ) : null}
-                                </div>
-                              </article>
+                                </TooltipContent>
+                              </Tooltip>
                             ),
                           )
                         )}

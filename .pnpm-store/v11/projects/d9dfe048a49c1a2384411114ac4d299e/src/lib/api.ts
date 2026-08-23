@@ -147,3 +147,24 @@ export async function getMembers(): Promise<TeamMember[]> {
   return parseResponse<TeamMember[]>(response, "Failed to fetch team members");
 }
 
+/**
+ * Update task status
+ */
+export async function updateTaskStatus(
+  taskId: string,
+  newStatus: TaskStatus,
+): Promise<Task> {
+  const response = await fetch(`${API_BASE_URL}/project/task/status`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      task_id: taskId,
+      new_status: newStatus,
+    }),
+  });
+
+  return parseResponse<Task>(response, "Failed to update task status");
+}
+
