@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ScaffoldPM",
   description: "AI-Driven Project Planning & Optimization",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

@@ -403,7 +403,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
         </div>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-2xl border border-slate-300 bg-white p-6 ">
+          <div className="flex items-center rounded-2xl border border-slate-300 bg-white p-6 ">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-blue-100 p-3 text-blue-700">
                 <CalendarDays className="h-5 w-5" />
@@ -418,7 +418,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-300 bg-white p-6 ">
+          <div className="flex items-center rounded-2xl border border-slate-300 bg-white p-6 ">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-sky-100 p-3 text-sky-700">
                 <FolderKanban className="h-5 w-5" />
@@ -432,7 +432,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-300 bg-white p-6">
+          <div className="flex items-center rounded-2xl border border-slate-300 bg-white p-6">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-violet-100 p-3 text-violet-700">
                 <Users className="h-5 w-5" />
@@ -446,7 +446,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-300 bg-white p-6 ">
+          <div className="flex items-center rounded-2xl border border-slate-300 bg-white p-6 ">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-amber-100 p-3 text-amber-700">
                 <Clock3 className="h-5 w-5" />
@@ -841,70 +841,71 @@ export function ProjectDetailClient({ id }: { id: string }) {
                                   side="top"
                                   align="start"
                                   sideOffset={10}
-                                  className="max-w-sm flex-col items-start gap-3 rounded-2xl bg-slate-900 p-4 text-slate-50 shadow-xl"
+                                  className="max-w-sm flex-col items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-slate-900 shadow-xl"
+                                  arrowClassName="bg-primary fill-primary"
                                 >
                                   <div className="space-y-2">
                                     <div className="flex flex-wrap items-center gap-2">
-                                      <p className="text-sm font-semibold text-white">
+                                      <p className="text-sm font-semibold text-slate-900">
                                         {task.title}
                                       </p>
                                       {task.is_critical ? (
-                                        <span className="rounded-full bg-rose-500/20 px-2 py-0.5 text-[11px] font-semibold text-rose-100">
+                                        <span className="rounded-full bg-rose-100 px-2 py-0.5 text-[11px] font-semibold text-rose-700">
                                           Critical
                                         </span>
                                       ) : null}
                                     </div>
-                                    <p className="text-xs uppercase tracking-[0.16em] text-slate-300">
+                                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-900">
                                       Phase {phaseOrder} / {activityTitle}
                                     </p>
                                   </div>
 
                                   {task.description ? (
-                                    <p className="text-sm leading-6 text-slate-200">
+                                    <p className="text-sm leading-6 text-slate-600">
                                       {task.description}
                                     </p>
                                   ) : null}
 
                                   <div className="grid w-full grid-cols-2 gap-3 text-sm">
                                     <div>
-                                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-900">
                                         Phase
                                       </p>
-                                      <p className="mt-1 text-slate-100">
+                                      <p className="mt-1 text-slate-600">
                                         {phaseTitle}
                                       </p>
                                     </div>
                                     <div>
-                                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-900">
                                         Activity
                                       </p>
-                                      <p className="mt-1 text-slate-100">
+                                      <p className="mt-1 text-slate-600">
                                         {activityTitle}
                                       </p>
                                     </div>
                                     <div>
-                                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-900">
                                         Assignee
                                       </p>
-                                      <p className="mt-1 text-slate-100">
+                                      <p className="mt-1 text-slate-600">
                                         {task.assigned_name || "Unassigned"}
                                       </p>
                                     </div>
                                     <div>
-                                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-900">
                                         Estimate
                                       </p>
-                                      <p className="mt-1 text-slate-100">
+                                      <p className="mt-1 text-slate-600">
                                         {formatHours(task.estimated_hours)}
                                       </p>
                                     </div>
                                   </div>
 
                                   <div className="w-full">
-                                    <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-900">
                                       Schedule
                                     </p>
-                                    <p className="mt-1 text-sm text-slate-100">
+                                    <p className="mt-1 text-sm text-slate-600">
                                       {formatDate(task.start_date)} -{" "}
                                       {formatDate(task.end_date)}
                                     </p>
@@ -915,7 +916,7 @@ export function ProjectDetailClient({ id }: { id: string }) {
                                       {task.skills_required.map((skill) => (
                                         <span
                                           key={skill}
-                                          className="rounded-full bg-white/10 px-2 py-1 text-[11px] font-medium text-slate-100"
+                                          className="rounded-full bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-700"
                                         >
                                           {skill}
                                         </span>

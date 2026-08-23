@@ -35,7 +35,7 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
             />
           </aside>
           <div className="bg-sidebar flex h-screen min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden p-4">
-            <main className="scrollbar-hide bg-background w-full flex flex-col flex-1 overflow-x-hidden overflow-y-auto rounded-4xl">
+            <main className="scrollbar-hide bg-[#F6F6F6] w-full flex flex-col flex-1 overflow-x-hidden overflow-y-auto rounded-4xl">
               {children}
             </main>
           </div>
